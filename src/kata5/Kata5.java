@@ -8,6 +8,15 @@ import java.sql.ResultSet;
 
 public class Kata5 {
 
+    private static void createNewTable(Connection conn) throws SQLException{
+        String sql = "CREATE TABLE IF NOT EXISTS email(\n"
+                        + "id integer primary key autoincrement,\n"
+                        + "direccion text NOT NULL);";
+        
+        Statement stmt = conn.createStatement();
+        stmt.execute(sql);
+    }
+    
     public static void main(String[] args) {
         String url = "jdbc:sqlite:KATA5.db";
         String sql = "SELECT * FROM PEOPLE";
@@ -22,6 +31,8 @@ public class Kata5 {
                                    + rs.getString("Apellidos") + "\t"
                                    + rs.getString("Departamento") + "\t");
             }
+            
+            createNewTable(conn);
             
         } catch (SQLException e){
             System.out.println(e.getMessage());
